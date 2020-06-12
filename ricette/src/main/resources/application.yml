@@ -1,0 +1,46 @@
+# application.yml
+--- 
+spring: 
+  application: 
+    name: ricette
+  # POSTGRESQL
+  jpa:
+    #database: POSTGRESQL
+    hibernate:
+      ddl-auto: create
+      #use-new-id-generator-mappings: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQL82Dialect
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    #platform: postgres
+    url: jdbc:postgresql://postgres-ricette-service.asw-project.svc.cluster.local:5432/ricettedb
+    # url: jdbc:postgresql://postgres-service.asw-project.svc.cluster.local:5432/postgresdb-ricette
+    username: postgres
+    password: postgres
+  # KAFKA    
+  kafka:
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      bootstrap-servers: http://kafka-service.asw-project.svc.cluster.local:9092
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+           spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      bootstrap-servers: http://kafka-service.asw-project.svc.cluster.local:9092
+server: 
+  #port: ${PORT:${SERVER_PORT:0}}
+  port: 8080
+
+# fa il logging dei comandi sql eseguiti 
+#spring.jpa.show-sql: true
+# disable OSIV
+spring.jpa.open-in-view: false

@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-service
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: kafka
+spec:
+  selector:
+    app: instagnam
+    service: kafka
+    id: "0"
+  type: LoadBalancer
+  ports:
+  - name: kafka-port
+    protocol: TCP
+    port: 9092
+    
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kafka
+  namespace: asw-project
+spec:
+ rules:
+ - host: kafka
+   http:
+    paths:
+    - path: /
+      backend:
+        serviceName: kafka-service
+        servicePort: 9092
+ 

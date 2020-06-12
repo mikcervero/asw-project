@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ricette-deployment
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: ricette
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: instagnam
+      service: ricette
+  template:
+    metadata:
+      labels:
+        app: instagnam
+        service: ricette
+    spec:
+      containers:
+      - name: asw-ricette
+        image: cmik/ricette:5.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

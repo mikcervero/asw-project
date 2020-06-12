@@ -1,0 +1,40 @@
+# application.yml 
+--- 
+spring: 
+  application: 
+    name: apigateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: ricette_seguite_route
+        uri: http://ricette-seguite-service.asw-project.svc.cluster.local:8080/ricetteseguite
+        predicates:
+        - Path=/ricetteseguite/**
+       
+      - id: ricette_route
+        uri:  http://ricette-service.asw-project.svc.cluster.local:8080/ricette
+        predicates:
+        - Path=/ricette/**
+    
+      - id: connessioni_route
+        uri: http://connessioni-service.asw-project.svc.cluster.local:8080/connessioni
+        predicates:
+        - Path=/connessioni/**
+        
+    
+server: 
+  port: 8080
+
+management: 
+  endpoint.gateway.enabled: true 
+  endpoints.web.exposure.include: gateway,beans
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.web.HttpLogging: INFO
+    org.springframework.cloud.gateway: INFO

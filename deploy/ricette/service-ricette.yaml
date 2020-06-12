@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ricette-service
+  namespace: asw-project
+spec:
+  selector:
+    app: instagnam
+    service: ricette
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+ 

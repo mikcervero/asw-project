@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: ricette-seguite-deployment
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: ricette-seguite
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: instagnam
+      service: ricette-seguite
+  template:
+    metadata:
+      labels:
+        app: instagnam
+        service: ricette-seguite
+    spec:
+      containers:
+      - name: asw-ricette-seguite
+        image: cmik/ricette-seguite:5.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

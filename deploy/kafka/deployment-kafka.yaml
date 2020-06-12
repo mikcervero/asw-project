@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: kafka-broker-deployment
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: kafka
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: instagnam
+        service: kafka
+        id: "0"
+    spec:
+      containers:
+      - name: kafka
+        image: wurstmeister/kafka
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9092
+        env:
+        - name: KAFKA_ADVERTISED_PORT
+          #value: "30718"
+          value: "9092"
+        - name: KAFKA_ADVERTISED_HOST_NAME
+          value: kafka-service.asw-project.svc.cluster.local
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: zoo1-service.asw-project.svc.cluster.local:2181
+        - name: KAFKA_BROKER_ID
+          value: "0"
+        - name: KAFKA_CREATE_TOPICS
+          value: ricette-topic:2:1,connessioni-topic:2:1

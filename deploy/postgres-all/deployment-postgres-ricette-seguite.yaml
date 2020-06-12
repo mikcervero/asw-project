@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres-ricette-seguite-deployment
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: postgres-ricette-seguite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: instagnam
+      service: postgres-ricette-seguite
+  template:
+    metadata:
+      labels:
+        app: instagnam
+        service: postgres-ricette-seguite
+    spec:
+      volumes:
+      - name: data-ricette-seguite
+        emptyDir: {}
+      containers:
+      - name: asw-postgres-ricette-seguite
+        image: postgres:9.6.5
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+           secretKeyRef:
+              name: db-security
+              key: db.user.name
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+             secretKeyRef:
+                name: db-security
+                key: db.user.password
+        - name: POSTGRES_DB
+          valueFrom:
+              configMapKeyRef:
+                    name: postgres-config-ricette-seguite
+                    key: postgres.db.name
+        ports:
+        - containerPort: 5432
+        
+        volumeMounts:
+        - name: data-ricette-seguite
+          mountPath: /var/lib/postgresql/
