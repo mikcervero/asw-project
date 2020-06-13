@@ -18,16 +18,27 @@ cd ../kafka
 
 sh start-container.sh
 
+echo Wait Before Starting Microservices Container
+
+sleep 30s
+
 cd ../ricette-seguite
 
 sh start-container.sh
 
+echo Wait Before Starting Microservices Container
+
+sleep 10s
+
 cd ../connessioni
 
 sh start-container.sh
+
+echo Wait Before Starting Microservices Container
 
 cd ../ricette
 
 sh start-container.sh
 
 
+echo Wait One Minute Before Try Request

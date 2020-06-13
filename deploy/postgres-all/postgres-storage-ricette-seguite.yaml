@@ -1,0 +1,33 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-ricette-seguite-pv-volume
+  namespace: asw-project
+  labels:
+    type: local
+    app: instagnam
+    service: postgres-ricette-seguite
+spec:
+  storageClassName: hostpath
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgres-ricette-seguite-pv-claim
+  namespace: asw-project
+  labels:
+    app: instagnam
+    service: postgres-connessioni
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

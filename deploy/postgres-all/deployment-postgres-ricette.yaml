@@ -19,8 +19,9 @@ spec:
         service: postgres-ricette
     spec:
       volumes:
-      - name: data-ricette
-        emptyDir: {}
+      - name: postgres-ricette-pv-claim
+        persistentVolumeClaim:
+          claimName: postgres-ricette-pv-claim
       containers:
       - name: asw-postgres-ricette
         image: postgres:9.6.5
@@ -45,5 +46,6 @@ spec:
           - containerPort: 5432
         
         volumeMounts:
-        - name: data-ricette
-          mountPath: /var/lib/postgresql/
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-ricette-pv-claim
+    

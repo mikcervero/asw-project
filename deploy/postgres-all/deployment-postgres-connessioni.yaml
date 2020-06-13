@@ -19,8 +19,9 @@ spec:
         service: postgres-connessioni
     spec:
       volumes:
-      - name: data
-        emptyDir: {}
+      - name: postgres-connessioni-pv-claim
+        persistentVolumeClaim:
+          claimName: postgres-connessioni-pv-claim
       containers:
       - name: asw-postgres-connessioni
         image: postgres:9.6.5
@@ -41,10 +42,10 @@ spec:
             configMapKeyRef:
                 name: postgres-config
                 key: postgres.db.name
-        
         ports:
           - containerPort: 5432
+        
         volumeMounts:
-        - name: data
-          mountPath: /var/lib/postgresql/
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-connessioni-pv-claim
       
