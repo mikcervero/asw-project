@@ -1,13 +1,12 @@
 package asw.instagnam.ricetteseguite.domain.repositories;
 
 import asw.instagnam.ricetteseguite.domain.entities.RicettaSeguita;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Collection;
+import java.util.List;
 
-public interface RicettaSeguitaRepository extends CrudRepository<RicettaSeguita, Long> {
+public interface RicettaSeguitaRepository extends JpaRepository<RicettaSeguita, Long> {
 	
-	public Collection<RicettaSeguita> findAllByFollower(String follower);
+	List<RicettaSeguita> findAllByFollower(String follower);
 	
-
 }

@@ -5,21 +5,15 @@ spring:
     name: connessioni
   # POSTGRESQL
   jpa:
-    #database: POSTGRESQL
+   
     hibernate:
       ddl-auto: create
-      #use-new-id-generator-mappings: true
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQL82Dialect
-#        jdbc:
-#          lob:
-#            non_contextual_creation: true
+  
   datasource:
     driver-class-name: org.postgresql.Driver
-#    platform: postgres
+
     url: jdbc:postgresql://postgres-connessioni-service.asw-project.svc.cluster.local:5432/connessionidb
-    # url: jdbc:postgresql://postgres-service.asw-project.svc.cluster.local:5432/postgresdb-connessioni
+    
     username: postgres
     password: postgres
   # KAFKA    

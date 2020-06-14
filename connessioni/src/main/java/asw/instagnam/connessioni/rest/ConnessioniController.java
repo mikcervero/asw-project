@@ -24,9 +24,15 @@ public class ConnessioniController {
 	public Connessione createConnessione(@RequestBody CreateConnessioneRequest request) {
 		String follower = request.getFollower();
 		String followed = request.getFollowed();
+		if(!connessioniService.existsConnessione(follower, followed)) {
 		logger.info("REST CALL: createConnessione " + follower + ", " + followed); 
 		Connessione connessione = connessioniService.createConnessione(follower, followed);
-		return connessione; 
+		return connessione; }
+		else {
+			throw new ResponseStatusException(
+				HttpStatus.BAD_REQUEST, "La connessione è stata già inserita"
+			);
+		}
 	}	
 
 	/* Trova la connessione con connessioneId. */ 

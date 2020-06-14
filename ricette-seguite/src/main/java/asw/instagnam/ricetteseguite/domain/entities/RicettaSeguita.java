@@ -6,28 +6,27 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import asw.instagnam.ricetteseguite.domain.compkeys.RicettaSeguitaId;
+
 
 @Entity
+@IdClass(RicettaSeguitaId.class)
 @Data @NoArgsConstructor @AllArgsConstructor
 public class RicettaSeguita {
-	
+
 	@Id
-	@GeneratedValue
-	private Long id;
-	private String follower; 
+	private String follower;
+	
 	private Long idRicetta; 
+
+	@Id
 	private String autoreRicetta; 
+	@Id
 	private String titoloRicetta;
 
-	public RicettaSeguita(String follower, Long idRicetta, String autoreRicetta, String titoloRicetta) {
-		super();
-		this.follower = follower;
-		this.idRicetta = idRicetta;
-		this.autoreRicetta = autoreRicetta;
-		this.titoloRicetta = titoloRicetta;
+	
+	public Ricetta getRicetta(){
+		return new Ricetta(idRicetta,autoreRicetta, titoloRicetta);
 	}
 
-	public Ricetta getRicetta(){
-		return new Ricetta(idRicetta, autoreRicetta, titoloRicetta);
-	}
 }

@@ -19,9 +19,8 @@ spec:
         service: postgres-ricette-seguite
     spec:
       volumes:
-      - name: postgres-ricette-seguite-pv-claim
-        persistentVolumeClaim:
-          claimName: postgres-ricette-seguite-pv-claim
+      - name: data-ricette-seguite
+        emptyDir: {}
       containers:
       - name: asw-postgres-ricette-seguite
         image: postgres:9.6.5
@@ -44,7 +43,7 @@ spec:
                     key: postgres.db.name
         ports:
         - containerPort: 5432
+        
         volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: postgres-ricette-seguite-pv-claim
-     
+        - name: data-ricette-seguite
+          mountPath: /var/lib/postgresql/

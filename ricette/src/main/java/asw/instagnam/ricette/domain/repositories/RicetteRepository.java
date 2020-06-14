@@ -8,8 +8,9 @@ import java.util.Collection;
 public interface RicetteRepository extends CrudRepository<RicettaCompleta, Long> {
 
 	public Collection<RicettaCompleta> findAll();
-
+    public boolean existsByAutoreAndTitolo(String autore, String titolo);
 	public Collection<RicettaCompleta> findAllByAutore(String autore);
+	public RicettaCompleta findByUuid(Long id);
 
 }
 

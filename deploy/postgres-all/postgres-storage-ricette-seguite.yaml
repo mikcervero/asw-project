@@ -3,12 +3,8 @@ apiVersion: v1
 metadata:
   name: postgres-ricette-seguite-pv-volume
   namespace: asw-project
-  labels:
-    type: local
-    app: instagnam
-    service: postgres-ricette-seguite
 spec:
-  storageClassName: hostpath
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
@@ -21,11 +17,8 @@ apiVersion: v1
 metadata:
   name: postgres-ricette-seguite-pv-claim
   namespace: asw-project
-  labels:
-    app: instagnam
-    service: postgres-connessioni
 spec:
-  storageClassName: hostpath
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:

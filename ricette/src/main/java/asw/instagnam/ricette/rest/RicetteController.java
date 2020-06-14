@@ -27,9 +27,15 @@ public class RicetteController {
 		String autore = request.getAutore();
 		String titolo = request.getTitolo();
 		String preparazione = request.getPreparazione();
+		if(!ricetteService.existsRicetta(autore, titolo)) {
 		logger.info("REST CALL: createRicetta " + autore + ", " + titolo + ", " + preparazione); 
 		RicettaCompleta ricetta = ricetteService.createRicetta(autore, titolo, preparazione);
-		return ricetta; 
+		return ricetta; }
+		else {
+			throw new ResponseStatusException(
+				HttpStatus.BAD_REQUEST, "La ricetta è stata già inserita"
+			);
+		}
 	}	
 
 	/* Trova la ricetta con ricettaId. */ 

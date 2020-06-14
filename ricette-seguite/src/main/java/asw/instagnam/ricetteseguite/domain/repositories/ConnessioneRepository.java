@@ -11,6 +11,4 @@ public interface ConnessioneRepository extends JpaRepository<Connessione, Long> 
 
      List<Connessione> findAllByFollowed(String followed);
 
-
 }
-

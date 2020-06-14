@@ -1,14 +1,13 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-connessioni-pv-volume
+  name: connessioni-pv-volume
   namespace: asw-project
   labels:
-    type: local
     app: instagnam
     service: postgres-connessioni
 spec:
-  storageClassName: hostpath
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
@@ -19,16 +18,15 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-connessioni-pv-claim
+  name: connessioni-pv-claim
   namespace: asw-project
   labels:
     app: instagnam
     service: postgres-connessioni
 spec:
-  storageClassName: hostpath
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-

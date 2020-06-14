@@ -6,8 +6,8 @@ import asw.instagnam.ricetteseguite.domain.entities.RicettaSeguita;
 import asw.instagnam.ricetteseguite.domain.repositories.ConnessioneRepository;
 import asw.instagnam.ricetteseguite.domain.repositories.RicettaRepository;
 import asw.instagnam.ricetteseguite.domain.repositories.RicettaSeguitaRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -32,7 +32,6 @@ public class RicetteSeguiteService {
     }
 
     public Collection<Ricetta> getRicetteSeguite(String followerId) {
-        logger.info(" SONO NELLA GET");
         return ricettaSeguitaRepository.findAllByFollower(followerId)
                 .stream().map(RicettaSeguita::getRicetta).collect(Collectors.toList());
     }
@@ -71,8 +70,8 @@ public class RicetteSeguiteService {
                     idRicetta,
                     autore,
                     titolo));
-        } catch (ConstraintViolationException e) {
-            logger.info("CONSTRAINT VIOLATION EXCEPTION: (" + followerId + ", " + idRicetta + ")");
+        } catch (DataIntegrityViolationException e) {
+            logger.info("DUPLICATE FOUND, SKIPPING: (" + followerId + ", " + autore + ", " + titolo + ")");
         }
     }
 

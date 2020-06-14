@@ -11,19 +11,13 @@ kubectl create configmap postgres-config --namespace=asw-project --from-literal=
 
 kubectl create secret generic db-security --from-literal=db.user.name=postgres --from-literal=db.user.password=postgres  --namespace=asw-project
 
-kubectl apply -f postgres-storage-connessioni.yaml
-
 kubectl apply -f deployment-postgres-connessioni.yaml
 
 kubectl apply -f service-postgres-connessioni.yaml
 
-kubectl apply -f postgres-storage-ricette.yaml
-
 kubectl apply -f deployment-postgres-ricette.yaml
 
 kubectl apply -f service-postgres-ricette.yaml
-
-kubectl apply -f postgres-storage-ricette-seguite.yaml
 
 kubectl apply -f deployment-postgres-ricette-seguite.yaml
 
